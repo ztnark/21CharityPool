@@ -21,15 +21,16 @@ def donate(server_url = 'http://localhost:9393/'):
         print("{}".format(file_list[file]["name"]))
     try:
         # prompt the user to input the index number of the file to be purchase
-        sel = input("Please enter the index of the charity you'd like to donate to:")
+        sel = input("Please enter the index of the charity you'd like to donate to: ")
+        donation_amount = int(input("How much would you like to donate to this charity?: "))
         # check if the input index is valid key in file_list dict
         if int(sel) <= len(file_list):
             print('You selected {} in our database'.format(file_list[int(sel) - 1]["name"]))
         else:
             print("That is an invalid selection.")
         #create a 402 request with the server payout address
-        sel_url = server_url+'donate?payout_address={0}&donation=100'
-        answer = requests.get(url=sel_url.format(wallet.get_payout_address()), stream=True)
+        sel_url = server_url+'donate?donation={1}'
+        answer = requests.get(url=sel_url.format(donation_amount), stream=True)
         if answer.status_code != 200:
                 print("Could not make an offchain payment. Please check that you have sufficient balance.")
         else:
