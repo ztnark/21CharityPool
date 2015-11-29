@@ -29,7 +29,7 @@ def donate(server_url):
             print("That is an invalid selection.")
             return
         #create a 402 request
-        sel_url = server_url+'donate?sel={0}&donation={1}'.format(sel, donation_amount)
+        sel_url = server_url+'donate?sel={0}&donation={1}'.format(sel-1, donation_amount)
         answer = requests.get(url=sel_url, stream=True)
         if answer.status_code != 200:
             print("Could not make an offchain payment. Please check that you have sufficient balance.")
